@@ -17,7 +17,7 @@ import argparse
 
 def readConfig(cfg_file):
     if cfg_file == None:
-        cfg_file = 'credentials.json'
+        cfg_file = '../credentials.json'
 
     try:
        # using specified configfilename, grab url, un, & pwd from file
