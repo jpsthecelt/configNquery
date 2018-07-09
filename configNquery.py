@@ -13,7 +13,6 @@ import argparse
 # we also use the ElementTree library to simplify XML parsing/manipulation
 
 # log in.
-#baseurl = 'http://adhaytem0a.ad.csueastbay.edu:52311'
 #requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 def readConfig(cfg_file):
