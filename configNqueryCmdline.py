@@ -93,13 +93,13 @@ if __name__ == '__main__':
     # print('\nAnd NOW... for something youll REALLY like (df1): ')
     # print(df1)
 
-    newRelevance = input("Enter new relevance query quotes, please: ")
-    x = queryViaRelevance(myCfgData, newRelevance)
+    #newRelevance = input("Enter new relevance query quotes, please: ")
+    #x = queryViaRelevance(myCfgData, newRelevance)
     # print("\nx: ", x)
     # y = input("Continue? : ")
-    pd.options.display.max_colwidth = 100
-    ResponseDataframe = pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
+    #pd.options.display.max_colwidth = 100
+    #ResponseDataframe = pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
     # print("Relevance Query Response: ", ResponseDataframe.tail())
-    print("Relevance Query Response: ", ResponseDataframe)
-    print('\nThats all')
+    #print("Relevance Query Response: ", ResponseDataframe)
+    #print('\nThats all')
 
