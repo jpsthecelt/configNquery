@@ -1,3 +1,6 @@
 *~
 .ipynb_checkpoints/*
 .idea/*
+add.py
+.RData
+.Rhistory
