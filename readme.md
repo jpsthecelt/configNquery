@@ -13,8 +13,14 @@ The sample notebook file shows it's use in a Jupyter-Notebook setting.
 A typical use might be to initually use the config file information to 'set up the connection' with
 readConfig(<filename>) and then query information using queryViaRelevance(<credentials>, <relevance-string>)
 
-Sample query strings might be phrases like 'names of bes servers' or 
-'names whose (it as lowercase contains "adhay") of bes computers'.
+Within the 'commented-out example',  the parsing is potentially problematic, so we use the python 
+'untangle' library to parse the XML using a list-comprehension of the '<Answer>' nodes within the XML.  
+
+This list is used to create A Pandas dataframe, which is then passed on to R for manipulation.
+
+As far as Relevance, Sample query strings might be phrases like 'names of bes computers' or 
+'names whose (it as lowercase contains "adhay") of bes computers' [Notice that embedded quotes within
+the Relevance have to be 'escaped' by using the ascii-hex string %22].
 
 The query returns XML, which is then passed to another python function to retrieve a parsed list of
 elements, suitable for creating a dataframe (An example use is included as a comment in the
