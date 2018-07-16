@@ -1,20 +1,31 @@
-This is a notebook demonstrating a prototype set of functions from from a program I created
-called configNqueryCmdline.py. 
+SYNOPSIS:
+This is a notebook demonstrating a prototype set of functions from a Python program I created
+called configNqueryCmdline.py (included within this repository). 
 
-The notebook is a Jupyter (iPython) notebook which creates an R session and 
-uses the R library reticulate to call python functions which query the BigFix server 
-using a specified 'relevance' string ['Relevance' is the query-language used by the BigFix server
-to retrieve endpoint information https://www.ibm.com/support/knowledgecenter/en/SS6MCG_9.2.0/com.ibm.tivoli.tem.doc_9.2/Platform/Relevance/c_relevance_overview.html].
+The program routines open and read a configuration-file (credentials.json), and using that info,
+creates a 'query-channel' that extracts endpoint information from the BigFix management server.
 
-PREREQUISITES:
-1) On your development machine, you have to have the following properly-working setup:
-- An up-to-date iPython or anaconda installation, suitable for executing the commandline 'jupyter notebook .'
-- An installation of R
-- An R kernel, installed within Commandline R, as per: https://www.datacamp.com/community/blog/jupyter-notebook-r
+The included notebook (an R-style Jupyter notebook that creates an R session) shows an example
+of loading and using the Reticulate library to call the python code which establishes and queries
+information from BigFix. 
 
-So, the configuration-file used in both in the commandline and Jupyter-Notebook scenarios is stored in a file 
-called 'credentials.json'. The python program reads the specified BigFix server URL, username, and password
-and returns it as a configuration-dictionary. The elements can the be used by queryViaRelevance(p1, p2).
+Using the BigFix connection to query the BigFix server requires the use of a 4GL language called Relevance.
+[See https://www.ibm.com/support/knowledgecenter/en/SS6MCG_9.2.0/com.ibm.tivoli.tem.doc_9.2/Platform/Relevance/c_relevance_overview.html].
+
+
+PROJECT PREREQUISITES:
+1) On your development machine, you must provide the following properly-working setup:
+- An up-to-date Jupyter (iPython) or anaconda installation, suitable for executing the commandline 
+'jupyter notebook .'
+- A working installation of R
+- An working jupyter R kernel, installed within Commandline R, as per: 
+https://www.datacamp.com/community/blog/jupyter-notebook-r
+
+DETAILS:
+So, the configuration-file used in both the commandline and Jupyter-Notebook scenarios is stored in a file 
+called 'credentials.json' (for privacy reasons, I leave this in the parent-directory). The python program 
+then reads the specified BigFix server URL, username, and password and returns it as a 
+configuration-dictionary. These elements can then be used in the queryViaRelevance(p1, p2) call.
 
 The sample notebook file shows it's employment in a Jupyter-Notebook setting. 
 A typical use might be to initially use the config file information to 'set up the connection' via
