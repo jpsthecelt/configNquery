@@ -54,6 +54,7 @@ def queryViaRelevance(data, rVance):
     #        returns a dataframe
     #        previously: ResponseDataframe = pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
 computersLf1 = lambda x: pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
+computersLf2 = lambda x: pd.DataFrame([i.cdata.split(">") for i in untangle.parse(x).BESAPI.Query.Result.Answer])
 
 if __name__ == '__main__':
     pd.options.display.max_colwidth = 100
