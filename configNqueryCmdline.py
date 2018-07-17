@@ -50,11 +50,13 @@ def queryViaRelevance(data, rVance):
        return resp.text
 
 
-# Function to filter out the names
-def names(name):
-    return name['value']
+    # Sample lambda function to parse returned XML & extract computer-names (note it has 1 parameter & 
+    #        returns a dataframe
+    #        previously: ResponseDataframe = pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
+computersLf1 = lambda x: pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
 
 if __name__ == '__main__':
+    pd.options.display.max_colwidth = 100
     config_filename = None
     myCfgData = readConfig(config_filename)
 
@@ -70,36 +72,4 @@ if __name__ == '__main__':
     r = requests.get(baseurl+'/api/fixlets/external/BES Support',verify=False,auth=(username,password))
     if r.status_code != 200:
         print(r.status_code)
-
-    # # point to the 'root' of the tree of XML data, then build a dictionary by filling two different arrays, then
-    # #       'zipping' (combining) together...
-    # root = ET.fromstring(r.text)
-    #
-    # i = []
-    # n = []
-    #
-    # print('starting search in results')
-    # for fixlet in root.findall('Fixlet'):
-    #     n.append(fixlet.find('Name').text)
-    #     i.append(fixlet.find('ID').text)
-    #
-    # print('creating dictionary')
-    # d = dict(zip(i, n))
-    # df0 = pd.DataFrame(dict(id=i, Name=n))
-    #
-    # # Now that we have the DataFrame, let's re-set the index to be the fixlet-id
-    # df1 = df0.set_index('id', inplace=None)
-    #
-    # print('\nAnd NOW... for something youll REALLY like (df1): ')
-    # print(df1)
-
-    #newRelevance = input("Enter new relevance query quotes, please: ")
-    #x = queryViaRelevance(myCfgData, newRelevance)
-    # print("\nx: ", x)
-    # y = input("Continue? : ")
-    #pd.options.display.max_colwidth = 100
-    #ResponseDataframe = pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
-    # print("Relevance Query Response: ", ResponseDataframe.tail())
-    #print("Relevance Query Response: ", ResponseDataframe)
-    #print('\nThats all')
 
