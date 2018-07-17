@@ -2,7 +2,7 @@ import sys
 import json
 import requests
 import untangle
-# from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import pandas as pd
 #import xml.etree.ElementTree as ET
 
@@ -13,7 +13,6 @@ import argparse
 # we also use the ElementTree library to simplify XML parsing/manipulation
 
 # log in.
-#requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 def readConfig(cfg_file):
     if cfg_file == None:
@@ -50,13 +49,14 @@ def queryViaRelevance(data, rVance):
        return resp.text
 
 
-    # Sample lambda function to parse returned XML & extract computer-names (note it has 1 parameter & 
-    #        returns a dataframe
-    #        previously: ResponseDataframe = pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
+# Sample lambda function to parse returned XML & extract computer-names (note it has 1 parameter & 
+#        returns a dataframe
+#        previously: ResponseDataframe = pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
 computersLf1 = lambda x: pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
 computersLf2 = lambda x: pd.DataFrame([i.cdata.split(">") for i in untangle.parse(x).BESAPI.Query.Result.Answer])
 
 if __name__ == '__main__':
+    requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     pd.options.display.max_colwidth = 100
     config_filename = None
     myCfgData = readConfig(config_filename)
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     if r.status_code != 200:
         print(r.status_code)
 
-    r = requests.get(baseurl+'/api/fixlets/external/BES Support',verify=False,auth=(username,password))
-    if r.status_code != 200:
-        print(r.status_code)
+#    r = requests.get(baseurl+'/api/fixlets/external/BES Support',verify=False,auth=(username,password))
+#    if r.status_code != 200:
+#        print(r.status_code)
 
