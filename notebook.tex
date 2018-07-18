@@ -1,0 +1,620 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{pyNrNotebook1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{R and Python Analytics via Jupyter, Reticulate, and
+BigFix}\label{r-and-python-analytics-via-jupyter-reticulate-and-bigfix}
+
+    \subsection{SYNOPSIS:}\label{synopsis}
+
+This notebook (an R session which calls Python 'helper-routines' from
+\textbf{configNqueryCmdline.py}) demonstrates interaction between R and
+Python programs and dataframes, showing the best features of both
+languages.
+
+The program opens and reads credentials \& URL from a configuration-file
+(credentials.json), creates a BigFix 'query-channel', and extracts
+endpoint information from the BigFix management server, to be
+manipulated and graphed using R libraries.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}160}]:} \PY{c+c1}{\PYZsh{} First Look for credentials.json in the parent directory listing}
+          \PY{k+kp}{list.files}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{..\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 'add.py'
+\item 'baseline\_template.bes'
+\item 'baselineActionReport.bes'
+\item 'bfClientSetting'
+\item 'completedBaseline.bes'
+\item 'configNquery'
+\item 'configNquery.ipynb'
+\item 'configNquery.py'
+\item 'createComputerGroup.py'
+\item 'createComputerGroup2.py'
+\item 'credentials.json'
+\item 'cycleGather.py'
+\item 'cycleGather.xml'
+\item 'doc'
+\item 'executeActionList4IEM.py'
+\item 'file.xml'
+\item 'fixedFixlets.txt'
+\item 'getAssetsNCheckinTime.py'
+\item 'getFixlets2DictUrllib3.py'
+\item 'getFixletsRest.py'
+\item 'getFixletsRest2File.py'
+\item 'getFixletsRest2File2.py'
+\item 'getFixletsRestAdonix.py'
+\item 'getFixletsRestAdonixUrllib.py'
+\item 'getFixletsRestGrass.py'
+\item 'Grasskeet-CriticalVulns-baseline.bes'
+\item 'importTweedleDeeFixlet.py'
+\item 'importTweedleDeeFixlet3.py'
+\item 'invokeBesProvisioning.xml'
+\item 'InvokeFixletRestViaPython.docx'
+\item 'InvokeFixletRestViaPython.pdf'
+\item 'InvokeFixletRestViaPython2.pdf'
+\item 'Li3000.txt'
+\item 'MasterSite\_FixletA.bes'
+\item 'MasterSite\_FixletB.bes'
+\item 'MS11-092\_ Vulnerability in Windows Media Could Allow Remote Code Execution - Windows 7 Gold\_SP1 (x64).bes'
+\item 'multiActionRestRequest.txt'
+\item 'namesXML.txt'
+\item 'nHTTP.rb'
+\item 'origTemRest.py'
+\item 'OtherImportedLibraryStuff'
+\item 'postExample.txt'
+\item 'protoComputerGroup.xml'
+\item 'raw\_group.txt'
+\item 'readConfigFmR'
+\item 'readFile2String.py'
+\item 'readFixletsIntoDictFormatNdisplay.py'
+\item 'README.md'
+\item 'restSnippet.py'
+\item 'rIEMifViaRest.py'
+\item 'sampleComputerGroup.bes'
+\item 'sampleComputerGroup.xml'
+\item 'SCAexamples'
+\item 'ServerAutomationExamples'
+\item 'SpybotTasks.bes'
+\item 'SpybotTasks.xml'
+\item 'startBesGather.xml'
+\item 'Stop \& Start BESGather.bes'
+\item 'Stop BesGather service.bes'
+\item 'stopBesGather.txt'
+\item 'stopBesGather.xml'
+\item 'stopGather.py'
+\item 'SUA-InventoryExamples'
+\item 'target\_computer\_group.txt'
+\item 'temPostActionViaRest.py'
+\item 'temPostInvokeProvisioning.py'
+\item 'temPostInvokeProvisioning2.py'
+\item 'testPostGroup.xml'
+\item 'testPostParameter.py'
+\item 'testPostParameter.xml'
+\item 'tokenFile.txt'
+\item 'TweedleDee.bes'
+\item 'Untitled.ipynb'
+\end{enumerate*}
+
+
+    
+    \textbf{install/instantiate Reticulate library using
+install.packages('reticulate') and library('reticulate'), then 'pull in'
+configNqueryCmdline.py}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}171}]:} \PY{c+c1}{\PYZsh{} install.packages(\PYZsq{}reticulate\PYZsq{})}
+          \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{reticulate\PYZdq{}}\PY{p}{)}
+          source\PYZus{}python\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{rdConfigNqueryBF.py\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{As a first pass, just get some computer names from BigFix and
+print them out}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}172}]:} \PY{c+c1}{\PYZsh{} First\PYZhy{}Pass: Set up and read the credentials\PYZhy{}file, returning the configuration\PYZhy{}dictionary}
+          rCfg\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{../credentials.json\PYZdq{}}
+          myCfg\PY{o}{\PYZlt{}\PYZhy{}}readConfig\PY{p}{(}rCfg\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Create a \PYZsq{}relevance string and query the BigFix server about computers containing \PYZsq{}adhay\PYZsq{} in their hostnames}
+          newRelevance\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{names of bes computers\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} Use configuration and relevance to query BigFix}
+          xmlResult\PY{o}{\PYZlt{}\PYZhy{}}queryBFviaRelevance\PY{p}{(}myCfg\PY{p}{,}newRelevance\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}print(xmlResult)}
+          
+          \PY{c+c1}{\PYZsh{} Using a lambda function defined for the purpose of parsing the bes computers XML, }
+          \PY{c+c1}{\PYZsh{} print out the first 6 elements of the DataFrame}
+          \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{head}\PY{p}{(}computersLf1\PY{p}{(}xmlResult\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+           0
+1    A206915
+2    A206904
+3  VBT222-28
+4    A122443
+5 ADHAYGAP21
+6    A206607
+
+    \end{Verbatim}
+
+    \textbf{As a second pass, get a particular set of computer names, but
+also include their last 'checkin time'}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}173}]:} \PY{c+c1}{\PYZsh{} Second\PYZhy{}Pass:}
+          \PY{c+c1}{\PYZsh{} Create a \PYZsq{}relevance string and query the BigFix server }
+          \PY{c+c1}{\PYZsh{} We\PYZsq{}re looking for all endpoints containing \PYZdq{}ADHAY\PYZdq{} in the name and their last checkin time}
+          \PY{c+c1}{\PYZsh{} (notice encoding of double\PYZhy{}quote and ampersand characters)}
+          newRelevance\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{(name of it \PYZpc{}26 \PYZpc{}22\PYZgt{}\PYZpc{}22 \PYZpc{}26 (last report time of it) as string) of bes computers whose (name of it as lowercase contains \PYZpc{}22adhay\PYZpc{}22)\PYZdq{}}
+          xmlResult\PY{o}{\PYZlt{}\PYZhy{}}queryBFviaRelevance\PY{p}{(}myCfg\PY{p}{,}newRelevance\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Using the second lambda function we defined for parsing bes computers, }
+          \PY{c+c1}{\PYZsh{} return a dataframe of tuples split by \PYZdq{}\PYZgt{}\PYZdq{}}
+          df0\PY{o}{\PYZlt{}\PYZhy{}}computersLf2\PY{p}{(}xmlResult\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Now clean up the data \PYZam{} rename the columns appropriately, displaying a sample}
+          \PY{k+kp}{names}\PY{p}{(}df0\PY{p}{)}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Endpoint Name\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Last Checkin Time\PYZdq{}}\PY{p}{)}
+          \PY{k+kp}{head}\PY{p}{(}df0\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Let\PYZsq{}s see how many tuples we have...}
+          str\PY{p}{(}df0\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|ll}
+ Endpoint Name & Last Checkin Time\\
+\hline
+	 ADHAYGAP21                      & Wed, 18 Jul 2018 11:36:29 -0700\\
+	 ADHAYVCR01                      & Wed, 18 Jul 2018 11:39:36 -0700\\
+	 ADHAYFDB01                      & Wed, 18 Jul 2018 11:03:06 -0700\\
+	 ADHAYMCS01N1                    & Wed, 18 Jul 2018 11:31:05 -0700\\
+	 ADHAYGAP16                      & Wed, 18 Jul 2018 11:40:01 -0700\\
+	 ADHAYWEB08                      & Wed, 18 Jul 2018 11:30:22 -0700\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	144 obs. of  2 variables:
+ \$ Endpoint Name    : chr  "ADHAYGAP21" "ADHAYVCR01" "ADHAYFDB01" "ADHAYMCS01N1" {\ldots}
+ \$ Last Checkin Time: chr  "Wed, 18 Jul 2018 11:36:29 -0700" "Wed, 18 Jul 2018 11:39:36 -0700" "Wed, 18 Jul 2018 11:03:06 -0700" "Wed, 18 Jul 2018 11:31:05 -0700" {\ldots}
+ - attr(*, "pandas.index")=RangeIndex(start=0, stop=144, step=1)
+
+    \end{Verbatim}
+
+    \textbf{Finally, let's get both their 'Last Report Time' and their
+'First Report Time', displayed in a table}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}174}]:} \PY{c+c1}{\PYZsh{} Third\PYZhy{}Pass:}
+          \PY{c+c1}{\PYZsh{} Create a \PYZsq{}relevance string and query the BigFix server for all endpoints containing \PYZdq{}ADHAY\PYZdq{} in the name, }
+          \PY{c+c1}{\PYZsh{} their last checkin time, and initial install date}
+          
+          \PY{c+c1}{\PYZsh{} BTW, (notice the encoding of double\PYZhy{}quotes (\PYZpc{}22), \PYZdq{}\PYZgt{}\PYZdq{} (\PYZpc{}3e), and ampersand (\PYZpc{}26) characters)}
+          newRelevance\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{(name of it \PYZpc{}26 \PYZpc{}22\PYZpc{}3e\PYZpc{}22 \PYZpc{}26 last report time of it as string \PYZpc{}26 \PYZpc{}22\PYZpc{}3e\PYZpc{}22 \PYZpc{}26 (value of results (it, bes property \PYZpc{}22InitialInstallDate\PYZpc{}22) as string)) of bes computers whose}
+          \PY{l+s}{(name of it as lowercase contains \PYZpc{}22adhay\PYZpc{}22 and exists value of it of results (it, bes property \PYZpc{}22InitialInstallDate\PYZpc{}22))\PYZdq{}}
+          
+          xmlResult\PY{o}{\PYZlt{}\PYZhy{}}queryBFviaRelevance\PY{p}{(}myCfg\PY{p}{,}newRelevance\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Using the second lambda function we defined for parsing bes computers, }
+          \PY{c+c1}{\PYZsh{} clean up the dataframe renaming columns to something descriptive, \PYZam{} display the first 6}
+          df0\PY{o}{\PYZlt{}\PYZhy{}}computersLf2\PY{p}{(}xmlResult\PY{p}{)}
+          \PY{k+kp}{names}\PY{p}{(}df0\PY{p}{)}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Endpoint Name\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Last Checkin Time\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Initial Install Date\PYZdq{}}\PY{p}{)}
+          \PY{k+kp}{head}\PY{p}{(}df0\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lll}
+ Endpoint Name & Last Checkin Time & Initial Install Date\\
+\hline
+	 ADHAYGAP21                      & Wed, 18 Jul 2018 11:36:29 -0700 & Wed, 27 Jul 2016 17:08:32 -0700\\
+	 ADHAYVCR01                      & Wed, 18 Jul 2018 11:39:36 -0700 & Wed, 08 Jun 2016 10:33:56 -0700\\
+	 ADHAYFDB01                      & Wed, 18 Jul 2018 11:03:06 -0700 & Sun, 20 Sep 2015 08:53:24 -0700\\
+	 ADHAYMCS01N1                    & Wed, 18 Jul 2018 11:31:05 -0700 & Sun, 20 Sep 2015 08:39:59 -0700\\
+	 ADHAYGAP16                      & Wed, 18 Jul 2018 11:40:01 -0700 & Thu, 16 Mar 2017 09:38:15 -0700\\
+	 ADHAYWEB08                      & Wed, 18 Jul 2018 11:30:22 -0700 & Tue, 02 May 2017 07:43:19 -0700\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}188}]:} dateFmt\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZpc{}a, \PYZpc{}d \PYZpc{}b \PYZpc{}Y \PYZpc{}H:\PYZpc{}M:\PYZpc{}S \PYZpc{}z\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}189}]:} LastReportTime \PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.Date}\PY{p}{(}df0\PY{p}{[}\PY{l+m}{1}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Last Checkin Time\PYZdq{}}\PY{p}{]}\PY{p}{,}dateFmt\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}190}]:} InitialInstallDate \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{as.Date}\PY{p}{(}df0\PY{p}{[}\PY{l+m}{1}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Initial Install Date\PYZdq{}}\PY{p}{]}\PY{p}{,}dateFmt\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}185}]:} EndpointLifetime \PY{o}{\PYZlt{}\PYZhy{}} LastReportTime \PY{o}{\PYZhy{}} InitialInstallDate
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}187}]:} \PY{k+kp}{head}\PY{p}{(}df0\PY{p}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Last Checkin Time\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 'Wed, 18 Jul 2018 11:36:29 -0700'
+\item 'Wed, 18 Jul 2018 11:39:36 -0700'
+\item 'Wed, 18 Jul 2018 11:03:06 -0700'
+\item 'Wed, 18 Jul 2018 11:31:05 -0700'
+\item 'Wed, 18 Jul 2018 11:40:01 -0700'
+\item 'Wed, 18 Jul 2018 11:30:22 -0700'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}206}]:} df0\PY{o}{\PYZdl{}}LastReportTimeDate\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.Date}\PY{p}{(}df0\PY{p}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Last Checkin Time\PYZdq{}}\PY{p}{]}\PY{p}{,}dateFmt\PY{p}{)}
+          df0\PY{o}{\PYZdl{}}InitialInstallDate\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.Date}\PY{p}{(}df0\PY{p}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Initial Install Date\PYZdq{}}\PY{p}{]}\PY{p}{,}dateFmt\PY{p}{)}
+          df0\PY{o}{\PYZdl{}}Lifetime\PY{o}{\PYZlt{}\PYZhy{}}df0\PY{o}{\PYZdl{}}LastReportTimeDate\PY{o}{\PYZhy{}}df0\PY{o}{\PYZdl{}}InitialInstallDate
+          df0\PY{o}{\PYZdl{}}LastReportTimeDate\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+          df0\PY{o}{\PYZdl{}}InitialInstallDate\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+          \PY{k+kp}{head}\PY{p}{(}df0\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|llll}
+ Endpoint Name & Last Checkin Time & Initial Install Date & Lifetime\\
+\hline
+	 ADHAYGAP21                      & Wed, 18 Jul 2018 11:36:29 -0700 & Wed, 27 Jul 2016 17:08:32 -0700 &  720 days                      \\
+	 ADHAYVCR01                      & Wed, 18 Jul 2018 11:39:36 -0700 & Wed, 08 Jun 2016 10:33:56 -0700 &  770 days                      \\
+	 ADHAYFDB01                      & Wed, 18 Jul 2018 11:03:06 -0700 & Sun, 20 Sep 2015 08:53:24 -0700 & 1032 days                      \\
+	 ADHAYMCS01N1                    & Wed, 18 Jul 2018 11:31:05 -0700 & Sun, 20 Sep 2015 08:39:59 -0700 & 1032 days                      \\
+	 ADHAYGAP16                      & Wed, 18 Jul 2018 11:40:01 -0700 & Thu, 16 Mar 2017 09:38:15 -0700 &  489 days                      \\
+	 ADHAYWEB08                      & Wed, 18 Jul 2018 11:30:22 -0700 & Tue, 02 May 2017 07:43:19 -0700 &  442 days                      \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} str\PY{p}{(}df0\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	141 obs. of  4 variables:
+ \$ Endpoint Name       : chr  "ADHAYGAP21" "ADHAYVCR01" "ADHAYFDB01" "ADHAYMCS01N1" {\ldots}
+ \$ Last Checkin Time   : chr  "Wed, 18 Jul 2018 11:36:29 -0700" "Wed, 18 Jul 2018 11:39:36 -0700" "Wed, 18 Jul 2018 11:03:06 -0700" "Wed, 18 Jul 2018 11:31:05 -0700" {\ldots}
+ \$ Initial Install Date: chr  "Wed, 27 Jul 2016 17:08:32 -0700" "Wed, 08 Jun 2016 10:33:56 -0700" "Sun, 20 Sep 2015 08:53:24 -0700" "Sun, 20 Sep 2015 08:39:59 -0700" {\ldots}
+ \$ Lifetime            :Class 'difftime'  atomic [1:141] 720 770 1032 1032 489 {\ldots}
+  .. ..- attr(*, "units")= chr "days"
+ - attr(*, "pandas.index")=RangeIndex(start=0, stop=141, step=1)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}205}]:} df0\PY{o}{\PYZdl{}}l\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}198}]:} str\PY{p}{(}df0\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	141 obs. of  5 variables:
+ \$ Endpoint Name       : chr  "ADHAYGAP21" "ADHAYVCR01" "ADHAYFDB01" "ADHAYMCS01N1" {\ldots}
+ \$ Last Checkin Time   : chr  "Wed, 18 Jul 2018 11:36:29 -0700" "Wed, 18 Jul 2018 11:39:36 -0700" "Wed, 18 Jul 2018 11:03:06 -0700" "Wed, 18 Jul 2018 11:31:05 -0700" {\ldots}
+ \$ Initial Install Date: chr  "Wed, 27 Jul 2016 17:08:32 -0700" "Wed, 08 Jun 2016 10:33:56 -0700" "Sun, 20 Sep 2015 08:53:24 -0700" "Sun, 20 Sep 2015 08:39:59 -0700" {\ldots}
+ \$ Lifetime            :Class 'difftime'  atomic [1:141] 720 770 1032 1032 489 {\ldots}
+  .. ..- attr(*, "units")= chr "days"
+ \$ l                   : Factor w/ 78 levels "29","226","274",..: 41 51 73 73 30 19 61 53 39 45 {\ldots}
+ - attr(*, "pandas.index")=RangeIndex(start=0, stop=141, step=1)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}210}]:} \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{ggplot2\PYZsq{}}\PY{p}{)}
+          ggplot\PY{p}{(}df0\PY{p}{,} aes\PY{p}{(}x\PY{o}{=}\PY{k+kp}{as.factor}\PY{p}{(}Lifetime\PY{p}{)}\PY{p}{,} fill\PY{o}{=}\PY{k+kp}{as.factor}\PY{p}{(}Lifetime\PY{p}{)} \PY{p}{)}\PY{p}{)} \PY{o}{+}  geom\PYZus{}bar\PY{p}{(} \PY{p}{)} \PY{o}{+} coord\PYZus{}flip\PY{p}{(}\PY{p}{)} \PY{o}{+} labs\PY{p}{(}title\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Lifetime vs. Number of Endpoints (ADHAY...)\PYZdq{}}\PY{p}{,} x \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Lifetime (days)\PYZdq{}}\PY{p}{,} y\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{} of Endpoints\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
