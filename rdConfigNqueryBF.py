@@ -29,7 +29,7 @@ def readConfig(cfg_file):
         print ("EXCEPTION: %s " % sys.exc_info())
         exit('couldnt open file %s' % cfg_file)
 
-def queryViaRelevance(data, rVance):
+def queryBFviaRelevance(data, rVance):
        url = data["credentials"]["url"]
        username = data["credentials"]["username"]
        password = data["credentials"]["password"]
