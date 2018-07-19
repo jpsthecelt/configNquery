@@ -1,5 +1,6 @@
 SYNOPSIS:
 ========
+
 \begin{flushright}
 
 (jpsinger-06.01.18)
