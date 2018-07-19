@@ -1,11 +1,6 @@
 SYNOPSIS:
 ========
-
-\begin{flushright}
-
 (jpsinger-06.01.18)
-
-\end{flushright}
 
 This notebook (an R session which calls Python 'helper-routines' from **rdConfigNqueryBF.py**) demonstrates interaction between R and Python programs and dataframes, showing the best features of both languages.
 
