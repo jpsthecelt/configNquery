@@ -1,11 +1,15 @@
 SYNOPSIS:
-This notebook (an R session which calls Python 'helper-routines' from configNqueryCmdline.py) demonstrates interaction between R and Python programs and dataframes, showing the best features of both languages.
+========
+This notebook (an R session which calls Python 'helper-routines' from **rdConfigNqueryBF.py**) demonstrates interaction between R and Python programs and dataframes, showing the best features of both languages.
 
 The program opens and reads credentials & URL from a configuration-file (credentials.json), creates a BigFix 'query-channel', and extracts endpoint information from the BigFix management server, to be manipulated and graphed using R libraries.
 
 [Sample ggplot graph from BF query](LifetimeVsNumEndpoints-ADHAY.png)
 
+(jpsinger-06.01.18)
+
 PROJECT PREREQUISITES:
+=====================
 1) On your development machine, you must provide the following properly-working setup:
 - An up-to-date Jupyter (iPython) or anaconda installation, suitable for executing the commandline 
 'jupyter notebook .'
@@ -17,6 +21,7 @@ https://www.datacamp.com/community/blog/jupyter-notebook-r
 
 
 DETAILS:
+=======
 So, the configuration-file used in both the commandline and Jupyter-Notebook scenarios is stored in a file 
 called 'credentials.json' (for privacy reasons, I leave this in the parent-directory). The python routine
 readConfig() then reads the specified BigFix server URL, username, and password from the credentials.json file and 
