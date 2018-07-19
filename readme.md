@@ -6,7 +6,7 @@ This notebook (an R session which calls Python 'helper-routines' from **rdConfig
 
 The program opens and reads credentials & URL from a configuration-file (credentials.json), creates a BigFix 'query-channel', and extracts endpoint information from the BigFix management server, to be manipulated and graphed using R libraries.
 
-[Sample ggplot graph from BF query](LifetimeVsNumEndpoints-ADHAY.png)
+[Sample ggplot graph from BF query ('hover' cursor here)](LifetimeVsNumEndpoints-ADHAY.png)
 
 PROJECT PREREQUISITES:
 =====================
