@@ -1,12 +1,16 @@
 SYNOPSIS:
 ========
+\begin{flushright}
+
+(jpsinger-06.01.18)
+
+\end{flushright}
+
 This notebook (an R session which calls Python 'helper-routines' from **rdConfigNqueryBF.py**) demonstrates interaction between R and Python programs and dataframes, showing the best features of both languages.
 
 The program opens and reads credentials & URL from a configuration-file (credentials.json), creates a BigFix 'query-channel', and extracts endpoint information from the BigFix management server, to be manipulated and graphed using R libraries.
 
 [Sample ggplot graph from BF query](LifetimeVsNumEndpoints-ADHAY.png)
-
-(jpsinger-06.01.18)
 
 PROJECT PREREQUISITES:
 =====================
