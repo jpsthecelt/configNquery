@@ -3,6 +3,8 @@ This notebook (an R session which calls Python 'helper-routines' from configNque
 
 The program opens and reads credentials & URL from a configuration-file (credentials.json), creates a BigFix 'query-channel', and extracts endpoint information from the BigFix management server, to be manipulated and graphed using R libraries.
 
+[Sample ggplot graph from BF query](LifetimeVsNumEndpoints-ADHAY.png)
+
 PROJECT PREREQUISITES:
 1) On your development machine, you must provide the following properly-working setup:
 - An up-to-date Jupyter (iPython) or anaconda installation, suitable for executing the commandline 
