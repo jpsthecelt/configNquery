@@ -19,6 +19,8 @@ https://www.datacamp.com/community/blog/jupyter-notebook-r
 - Using the BigFix connection to query the BigFix server requires the use of a 4GL language called Relevance. This is used as a parameter to the query function, **queryBFviaRelevance()**
 [See https://www.ibm.com/support/knowledgecenter/en/SS6MCG_9.2.0/com.ibm.tivoli.tem.doc_9.2/Platform/Relevance/c_relevance_overview.html].
 
+The Python-Reticulate-R-BF-query Notebook:
+![Python-R-BF-query Notebook ('hover' cursor here)](queryBFnotebook.gif)
 
 DETAILS:
 =======
@@ -33,7 +35,8 @@ source code and calls the routines to first extract logon-information from the c
 make several queries to BigFix, 'munging' the returned information into a format which we can manipulate via R.
 
 It uses the routines readConfig(<filename>) and queryBFviaRelevance(<credential-dict>, <relevance-string>).
-
+![queryBFviaRelevance ('hover' cursor here)](queryBFnotebook.gif)
+    
 The XML returned by queryBFviaRelevance() is parsed using a lambda-function containing calls to the python 
 library 'untangle', all within a list-comprehension of the '<Answer>' nodes within the XML.  
 
