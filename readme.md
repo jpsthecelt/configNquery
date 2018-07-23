@@ -34,8 +34,9 @@ The sample notebook file shows a typical scenario of running R within a Jupyter 
 source code and calls the routines to first extract logon-information from the configuration file, and then 
 make several queries to BigFix, 'munging' the returned information into a format which we can manipulate via R.
 
-It uses the routines readConfig(<filename>) and queryBFviaRelevance(<credential-dict>, <relevance-string>).
-![queryBFviaRelevance](queryviaRelevanceEdit.gif)
+It uses the routines readConfig(<filename>) and queryBFviaRelevance(credential-dict, relevance-string).
+
+![queryBFviaRelevance](queryViaRelevanceEdit.gif)
     
 The XML returned by queryBFviaRelevance() is parsed using a lambda-function containing calls to the python 
 library 'untangle', all within a list-comprehension of the '<Answer>' nodes within the XML.  
