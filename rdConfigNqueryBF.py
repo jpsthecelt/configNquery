@@ -16,7 +16,7 @@ import argparse
 
 def readConfig(cfg_file):
     if cfg_file == None:
-        cfg_file = '../credentials.json'
+        cfg_file = '../BFcredentials.json'
 
     try:
        # using specified configfilename, grab url, un, & pwd from file
@@ -49,11 +49,11 @@ def queryBFviaRelevance(data, rVance):
        return resp.text
 
 
-# Sample lambda function to parse returned XML & extract computer-names (note it has 1 parameter & 
-#        returns a dataframe
+# We use sample lambda function to parse returned XML & extract computer-names (note that they have 1 parameter & 
+#        return a dataframe, e.g. 
 #        previously: ResponseDataframe = pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
-computersLf1 = lambda x: pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
-computersLf2 = lambda x: pd.DataFrame([i.cdata.split(">") for i in untangle.parse(x).BESAPI.Query.Result.Answer])
+#        replaced with:
+#           computersLf2 = lambda x: pd.DataFrame([i.cdata.split(">") for i in untangle.parse(x).BESAPI.Query.Result.Answer])
 
 if __name__ == '__main__':
     requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -73,4 +73,11 @@ if __name__ == '__main__':
 #    r = requests.get(baseurl+'/api/fixlets/external/BES Support',verify=False,auth=(username,password))
 #    if r.status_code != 200:
 #        print(r.status_code)
-
+#    else:
+#        print(r.text)
+#
+#    xml = queryBFviaRelevance(myCfgData, 'names of bes computers')
+#    if len(xml) > 0:
+#        print(xml)
+#    else:
+#        print("argh!!!")
