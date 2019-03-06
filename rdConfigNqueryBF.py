@@ -2,7 +2,7 @@ import sys
 
 import json
 import requests
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
+import urllib3
 import pandas as pd
 import xml.etree.ElementTree as ET
 import xmltodict
@@ -49,7 +49,7 @@ def queryBFviaRelevance(data, rVance):
 
 
 if __name__ == '__main__':
-    requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     pd.options.display.max_colwidth = 100
     config_filename = None
     myCfgData = readConfig(config_filename)
@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
 # With the two arrays 'zipped' into a dictionary create a pandas dataframe & print first 10 rows
     df0 = pd.DataFrame.from_dict(dict(zip(i,n)), orient='index')
-    print(df0.head())
+    print(df0.head(20))
 
     # So, now let's use our 'helper-function' queryBFviaRelevance(), and parse the result
     # using xmltodict() instead of above-used i,n loop
