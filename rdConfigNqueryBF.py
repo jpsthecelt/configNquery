@@ -1,18 +1,18 @@
 import sys
+
 import json
 import requests
-import untangle
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import pandas as pd
-#import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET
+import xmltodict
 
 import argparse
 
 
-# We are using the 'requests' library as it makes simple username/password authentication easy (for this example, only)
-# we also use the ElementTree library to simplify XML parsing/manipulation
-
-# log in.
+# We are using the 'requests' library as it makes simple username/password authentication easy 
+# and reproducable. We also demonstrate the use of ElementTree & XmlToDict for parsing/manipulation
+# of the resultant XML payload extracted from BF
 
 def readConfig(cfg_file):
     if cfg_file == None:
@@ -21,8 +21,7 @@ def readConfig(cfg_file):
     try:
        # using specified configfilename, grab url, un, & pwd from file
        with open(cfg_file) as data_file:
-              data = json.load(data_file)
-       return data
+           return json.load(data_file)
 
     except:
         # ex.msg is a string that looks like a dictionary
@@ -49,12 +48,6 @@ def queryBFviaRelevance(data, rVance):
        return resp.text
 
 
-# We use sample lambda function to parse returned XML & extract computer-names (note that they have 1 parameter & 
-#        return a dataframe, e.g. 
-#        previously: ResponseDataframe = pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
-#        replaced with:
-#           computersLf2 = lambda x: pd.DataFrame([i.cdata.split(">") for i in untangle.parse(x).BESAPI.Query.Result.Answer])
-
 if __name__ == '__main__':
     requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     pd.options.display.max_colwidth = 100
@@ -65,19 +58,56 @@ if __name__ == '__main__':
     password = myCfgData["credentials"]["password"]
     baseurl = myCfgData["credentials"]['url']
 
-
+# Attempt to first login to BF to verify 'connetivity'
     r = requests.get(baseurl+'/api/login',verify=False,auth=(username,password))
     if r.status_code != 200:
         print(r.status_code)
+        sys.exit(-1)
 
-#    r = requests.get(baseurl+'/api/fixlets/external/BES Support',verify=False,auth=(username,password))
-#    if r.status_code != 200:
-#        print(r.status_code)
-#    else:
-#        print(r.text)
-#
-#    xml = queryBFviaRelevance(myCfgData, 'names of bes computers')
-#    if len(xml) > 0:
-#        print(xml)
-#    else:
-#        print("argh!!!")
+# Attempt to get the names and ids of all the 'BES Support' fixlets
+    r = requests.get(baseurl+'/api/fixlets/external/BES Support',verify=False,auth=(username,password))
+    if r.status_code != 200:
+        print(r.status_code)
+        sys.exit(-1)
+    #else:
+    #    print(r.text)
+
+    # Using ElementTree, point 'root' to the base of the returned information & extract
+    #    The ids and names from the XML by looping through the resultant list
+    root = ET.fromstring(r.text)    
+    i = []
+    n = []
+    for fixlet in root.findall('Fixlet'):
+        n.append(fixlet.find('Name').text)
+        i.append(fixlet.find('ID').text)
+
+# With the two arrays 'zipped' into a dictionary create a pandas dataframe & print first 10 rows
+    df0 = pd.DataFrame.from_dict(dict(zip(i,n)), orient='index')
+    print(df0.head())
+
+    # So, now let's use our 'helper-function' queryBFviaRelevance(), and parse the result
+    # using xmltodict() instead of above-used i,n loop
+    xml = queryBFviaRelevance(myCfgData, 'names of bes computers')
+    
+    # [note that if I use the relevance to 'intersperse' the results with, say, '>' characters
+    #    it will facilitate parsing the results in order to print].
+    
+    # Incidentally, xmltodict.parse(xml) returns an ordered-dictionary of dictionaries, so we
+    #    then have to narrow the reference to the highest-level dictionary to the individual
+    #    elements we want to extract ...['BESAPI']['Query']['Result']['Answer'], loop through 
+    #    THAT dictionary, and extract the elements titled '#text', so we can print them.
+
+    # When we later use this sample in a real-world scenario, we'll employ lambda functions 
+    #        to parse the returned XML &, say, extract computer-names (note that they have 
+    #        1 parameter & return a dataframe), e.g. something like 
+    #        ResponseDataframe = 
+    #            pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
+    # replaced with:
+    #           computersLf2 = lambda x: pd.DataFrame([i.cdata.split(">") for i in untangle.parse(x).BESAPI.Query.Result.Answer])
+    #
+    # THAT way, we 'encapsulate' the 'knowledge' of what the dictionary 'looks like' in one spot,
+    #    the particular 'lambda' function
+    print("\nAnd here we've got the names of all ({0}) computers:\n".format(df0.size))
+    print([i['#text'] for i in xmltodict.parse(xml)['BESAPI']['Query']['Result']['Answer']])
+    
+    print('\nDone...')
