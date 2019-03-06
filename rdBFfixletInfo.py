@@ -1,8 +1,10 @@
 import sys
 import json
 import requests
+import urllib3
 import untangle
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
+import xmltodict
+#from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import pandas as pd
 #import xml.etree.ElementTree as ET
 
@@ -55,11 +57,12 @@ def queryBFviaRelevance(data, rVance):
 # Sample lambda function to parse returned XML & extract computer-names (note it has 1 parameter & 
 #        returns a dataframe
 #        previously: ResponseDataframe = pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
+fixletsLf = lambda x: pd.DataFrame([i.cdata.split(">") for i in xmltodict.parse(x)['BESAPI']['Query']['Result']['Answer']])
 computersLf1 = lambda x: pd.DataFrame([i.cdata for i in untangle.parse(x).BESAPI.Query.Result.Answer])
 computersLf2 = lambda x: pd.DataFrame([i.cdata.split(">") for i in untangle.parse(x).BESAPI.Query.Result.Answer])
 
 if __name__ == '__main__':
-    requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     pd.options.display.max_colwidth = 100
     config_filename = None
     myCfgData = readConfig(config_filename)
@@ -79,10 +82,14 @@ if __name__ == '__main__':
 #    else:
 #        print(r.text)
 
+#    if r.status_code != 200:
+#        print(r.status_code)
+#    else:
+#        print(r.text)
+
+    # Now, go get all the fixlets and turn the result into a dictionary
     relevance =  '(id of it as string %26 %22%3e%22 %26 name of site of it %26 %22%3e%22 %26 name of it %26 %22%3e%22 %26 relevance of it %26 %22%3e%22 %26 (script of default action of it | "<no script>")) of bes fixlets'
-#   relevance = 'names whose (it as lowercase contains %22adhay%22) of bes computers'
-    r = requests.get(baseurl+'/api/query?relevance='+relevance,verify=False,auth=(username,password))
-    if r.status_code != 200:
-        print(r.status_code)
-    else:
-        print(r.text)
+    xml = queryBFviaRelevance(myCfgData, relevance)
+    d0 = fixletsLf(xml)
+    d = xmltodict.parse(xml)
+    print(fixletsLf(xml))
