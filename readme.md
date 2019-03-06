@@ -54,3 +54,21 @@ notebooks, eventually using it all within 'R'-style 'shiny' apps.
 best,
 jpsinger, wizard-at-large
 INCEPT-DATE: 6.1.18
+
+UPDATE, as of 3.6.19:
+- Note that I just added a more robust rdConfigNqueryBF.py (I also wanted to make sure
+that it was completely compatible with python3, as well as the anaconda-environment).  
+
+I think it's important to 'highlight' that one usually creates/debugs a particular python
+file 'outside of' the IPython (notebook) environment, and only puts into a jupyter 
+'tableau' once things are basically working.  
+
+I, myself, use JetBrains 'pycharm' for this -- it has fantastic debug/orchestration 
+capability.  Once that was done, I 'honed' the jupyter notebook of the same name, and 
+finally combined it via the R/python 'reticulate' library.  
+
+That way, a reader doesn't get 'lost in the prop-wash' and can more easily 
+follow the progression of idea-to-execution.
+
+best,
+jpsinger, wizard-at-large 3.6.19
